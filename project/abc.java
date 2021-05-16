@@ -40,6 +40,7 @@ public class abc extends JFrame {
 	String com;
 	private String Inputs = " ";
 	private StringBuffer save;
+
 	/**
 	 * Launch the application.
 	 */
@@ -117,8 +118,7 @@ public class abc extends JFrame {
 					try {
 						File file = myFileChooser.getSelectedFile();
 						abc.this.setTitle(getTitle() + "-" + file.getName());
-						PrintWriter writer = new PrintWriter(
-								new BufferedWriter(new FileWriter(file.getPath())));
+						PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file.getPath())));
 						writer.write(text1.getText());
 						writer.close();
 					} catch (IOException ie) {
@@ -170,22 +170,28 @@ public class abc extends JFrame {
 		JMenuItem mntmNewMenuItem_7 = new JMenuItem("Compile");
 		mntmNewMenuItem_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String path = "C:\\Java\\";
+				File Folder = new File(path);
+				if (!Folder.exists()) {
+					try {
+						Folder.mkdir();
+					} catch (Exception e1) {
+						e1.getStackTrace();
+					}
+				}
 				Inputs = text1.getText();
-				save = new StringBuffer (Inputs);
-				String fileName = (Class()+".java");
+				save = new StringBuffer(Inputs);
+				String fileName = (Class() + ".java");
 				FileUtil.save(save, fileName);
-				
+
 				Cmd cmd = new Cmd();
 				try {
-					String command = cmd.inputCommand("cd C:\\Java\\"+" && "+"javac "+fileName);
+					String command = cmd.inputCommand("cd C:\\Java\\" + " && " + "javac " + fileName);
 					String result = cmd.execCommand(command);
 					text2.setText("컴파일성공");
-				}catch(Exception e1) {
+				} catch (Exception e1) {
 					e1.printStackTrace();
-					
 					text2.setText("컴파일 에러");
-					
-					
 				}
 			}
 		});
@@ -197,23 +203,22 @@ public class abc extends JFrame {
 				String fileName = Class();
 				Cmd cmd = new Cmd();
 				try {
-					String command = cmd.inputCommand("cd C:\\Java\\"+" && "+"java "+fileName);
+					String command = cmd.inputCommand("cd C:\\Java\\" + " && " + "java " + fileName);
 					System.out.print(command);
 					String result = cmd.execCommand(command);
 					text2.setText(result);
-				}catch(Exception e1) {
+				} catch (Exception e1) {
 					e1.printStackTrace();
 					text2.setText("실행 에러");
-					
-					
+
 				}
 			}
 		});
 		mnNewMenu_2.add(mntmNewMenuItem_8);
-		
+
 		JMenu mnNewMenu_3 = new JMenu("\uAC1C\uBC1C\uC790");
 		menuBar.add(mnNewMenu_3);
-		
+
 		JMenuItem menuItem = new JMenuItem("\uC815\uBCF4");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -245,36 +250,39 @@ public class abc extends JFrame {
 		text2 = new JTextArea();
 		scrollPane_1.setViewportView(text2);
 	}
+
 	public String Class() {
 		String className = text1.getText();
-		String []strArray = className.split(" ");
-		for (int i = 0 ; i < strArray.length; i++) {
-			if(strArray [i].equals("class")) {
-				className = strArray[i+1];
+		String[] strArray = className.split(" ");
+		for (int i = 0; i < strArray.length; i++) {
+			if (strArray[i].equals("class")) {
+				className = strArray[i + 1];
 				break;
 			}
 		}
 		return className;
-		
+
 	}
+
 	public JTextArea getText2() {
 		return text2;
 	}
+
 	public class project extends JFrame {
-	    project() {
-	        setTitle("개발자 정보");
-	        JPanel NewWindowContainer = new JPanel();
-	        setContentPane(NewWindowContainer);
-	        
-	        JLabel NewLabel = new JLabel("183916 진성");
-	        JLabel NewLabel1 = new JLabel("153307 김동현");
-	        
-	        NewWindowContainer.add(NewLabel);
-	        NewWindowContainer.add(NewLabel1);
-	        
-	        setSize(300,100);
-	        setResizable(false);
-	        setVisible(true);
-	    }
-}
+		project() {
+			setTitle("개발자 정보");
+			JPanel NewWindowContainer = new JPanel();
+			setContentPane(NewWindowContainer);
+
+			JLabel NewLabel = new JLabel("183916 진성");
+			JLabel NewLabel1 = new JLabel("153307 김동현");
+
+			NewWindowContainer.add(NewLabel);
+			NewWindowContainer.add(NewLabel1);
+
+			setSize(300, 100);
+			setResizable(false);
+			setVisible(true);
+		}
+	}
 }
